@@ -9,7 +9,7 @@ function MyCart() {
     const {cart,totalprice,remove,drop}=useGlobalContext();
     const handleSubmit=async(e)=>{
       let userEmail= localStorage.getItem("userEmail");
-      let response= await fetch("http://localhost:5000/api/orderData",{
+      let response= await fetch("https://go-food-20.onrender.com/api/orderData",{
           method:"POST",
           headers:{
               'Content-Type':"application/json",
