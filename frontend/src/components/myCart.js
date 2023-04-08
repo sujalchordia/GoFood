@@ -3,10 +3,11 @@ import { useState,useEffect } from 'react';
 import { useGlobalContext } from './context';
 import Navb from '../components/Navbar'
 import { AiFillDelete} from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function MyCart() {
-    const {cart,totalprice,remove,drop}=useGlobalContext();
+    const {cart,totalprice,remove,drop,showsuccessnessage,setShowSuccessMessage}=useGlobalContext();
+    const navigate=useNavigate();
     const handleSubmit=async(e)=>{
       let userEmail= localStorage.getItem("userEmail");
       let response= await fetch("https://go-food-20.onrender.com/api/orderData",{
@@ -19,9 +20,12 @@ function MyCart() {
               email:userEmail,
               order_date: new Date().toDateString()
           })
-      });
-      drop()
-  }
+      }).then((res)=>{
+        drop();
+        navigate("/myOrder");
+       }
+      )
+    }
     if(cart.length===0){
         return(
         <>
@@ -61,7 +65,8 @@ function MyCart() {
                       </tr>
                     </thead>
                     <tbody>
-                    {cart.map((item)=>{
+                    {
+                    cart.map((item)=>{
                         return(
                         <tr>
                         <th scope="row">
@@ -118,7 +123,7 @@ function MyCart() {
                     </tbody>
                   </table>
                   <div style={{"width":"90%","display": "flex","justify-content": "flex-end"}}>
-                  <button onClick={()=>{handleSubmit()}}type="button" className="btn btn-primary btn-block btn-md">
+                  <button onClick={()=>{handleSubmit()}}type="button" className="btn btn-block btn-md" style={{backgroundColor:"#9cac88",color:"white"}}>
                           <div className="d-flex justify-content-between">
                             <span>Checkout </span>
                           </div>

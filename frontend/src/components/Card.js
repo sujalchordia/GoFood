@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
 import { useGlobalContext } from './context';
+import { useNavigate } from 'react-router-dom';
 
 export default function Card({_id,name,description,img,options}) {
   let priceOptions=Object.keys(options[0]);
@@ -8,9 +9,8 @@ export default function Card({_id,name,description,img,options}) {
   const [number, setNumber] = useState(1);
   const [size, setSize] = useState(priceOptions[0]);
   const [price, setPrice] = useState(number*getkey(size));
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
-  const{adding,cart}=useGlobalContext();
+  const navigate=useNavigate();
+  const{adding,cart,showsuccessmessage,setShowSuccessMessage}=useGlobalContext();
   
   function getkey(size){
     for(let i in option){
@@ -23,10 +23,13 @@ export default function Card({_id,name,description,img,options}) {
   }, [size,number]);
 
   function handleCart(){
+    if(!localStorage.getItem("authToken")){
+      navigate("/login")
+    }
     setShowSuccessMessage(true);
     setTimeout(() => {
       setShowSuccessMessage(false);
-    }, 2000);
+    }, 2500);
   adding({_id:_id,name:name,img:img,size:size,number:number,price:price});
   }
     return (
@@ -39,7 +42,7 @@ export default function Card({_id,name,description,img,options}) {
           <div className="mask" style={{"backgroundColor":" rgba(251, 251, 251, 0.15)"}}></div>
         </a>
       </div>
-      <div className="card-body">
+      <div className="card-body" style={{backgroundColor:"#fffcf4"}}>
         <h5 className="card-title font-weight-bold" style={{"fontSize":"1.3rem"}}><a>{name}</a></h5>
         <p className="card-text font-weight-light "style={{"fontSize":"0.8rem"}}>
           {description}
@@ -65,7 +68,7 @@ export default function Card({_id,name,description,img,options}) {
             </div>
             <hr />
             <div>
-            <button className='btn btn-secondary'  onClick={()=>{handleCart()}}>Add To Cart</button>
+            <button className='btn 'style={{color:"white",backgroundColor:"#9cac88"}} onClick={()=>{handleCart()}}>Add To Cart</button>
             </div>
       </div>
     </div>

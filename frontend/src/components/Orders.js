@@ -3,11 +3,13 @@ import { useState,useEffect } from 'react';
 import { useGlobalContext } from './context';
 import Navb from '../components/Navbar'
 import { AiFillDelete} from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function MyOrders() {
-    const [orderData, setorderData] = useState([])
+    const [orderData, setorderData] = useState([]);
+    const {showsuccessmessage}=useGlobalContext();
+    const navigate=useNavigate();
     const fetchMyOrder = async () => {
         console.log(localStorage.getItem('userEmail'))
         await fetch("https://go-food-20.onrender.com/api/myOrderData", {
@@ -33,6 +35,11 @@ function MyOrders() {
         return(
         <>
         <Navb />
+        {showsuccessmessage && 
+                <div style={{position: "sticky",top:"50%",opacity:"0.75",textAlign:"center",width:"fit-content", margin: "auto",zIndex:"9999"}} className="alert alert-success" role="alert">
+                Order Placed Succesfully!
+                </div>
+              }
         <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6 text-center">
@@ -102,7 +109,7 @@ function MyOrders() {
               </div>
             </div>
             <div className=' text-center'>
-          <Link to="/" class="btn btn-secondary">Shop More</Link>
+          <Link to="/" class="btn" style={{backgroundColor:"#9cac88",color:"white"}}>Shop More</Link>
           </div>
           </div>
           </section>

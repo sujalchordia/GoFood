@@ -4,6 +4,7 @@ const AppContext = React.createContext()
 const initialState={
 cart:[],
 totalprice:0,
+showsuccessmessage:false,
 }
 
 const AppProvider = ({ children }) => {
@@ -21,6 +22,9 @@ const AppProvider = ({ children }) => {
   const adding=(statement)=>{
     dispatch({type:"ADD",payload:statement});
   }
+  const setShowSuccessMessage=(statement)=>{
+    dispatch({type:"SUCCESS",payload:statement});
+  }
   const totalpricing=(statement)=>{
     dispatch({type:"Price",payload:statement});
   }
@@ -35,7 +39,8 @@ const AppProvider = ({ children }) => {
     ...state,
     adding,
     remove,
-    drop
+    drop,
+    setShowSuccessMessage
   }}>{children}</AppContext.Provider>
 }
 // make sure use

@@ -12,10 +12,12 @@ export default function Navbar() {
   }
   const {cart}=useGlobalContext();
   return (
-    <>
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <div className="container-fluid">
-    <Link to ="/" className="navbar-brand fs-3 display-5 font-weight-bold fst-italic" style={{"fontSize":"10px"}}>GoFood</Link>
+    <div style={{backgroundColor:"#c4ccbc"}}>
+    <nav className="navbar navbar-expand-lg">
+    <div className="container-fluid">
+    <Link to ="/" className="navbar-brand fs-3 display-5 font-weight-bold fst-italic" style={{"fontSize":"10px"}}>
+      <img style={{width:"2.5rem"}}src={process.env.PUBLIC_URL +"/20230407_150210_0000-modified.png"}/>
+    </Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -54,6 +56,6 @@ export default function Navbar() {
     </div>
   </div>
 </nav>
-    </>
+    </div>
   )
 }

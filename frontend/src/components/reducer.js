@@ -33,6 +33,9 @@ export default (state , { type, payload }) => {
   case "DROP":{
     return {...state,cart:[]}
   }
+  case "SUCCESS":{
+    return {...state,showsuccessmessage:payload}
+  }
   case "REMOVE":{
     const carts=state.cart.filter((item)=>{
         if(item._id!==payload._id){
