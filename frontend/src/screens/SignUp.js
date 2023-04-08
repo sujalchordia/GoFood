@@ -6,8 +6,8 @@ function SignUp() {
     const{setShowSuccessMessage}=useGlobalContext();
     const [credentials, setCredentials] = useState({name:"",email:"",password:"",location:""})
     const handleSubmit=async(e)=>{
-        console.log(credentials);
-        e.preventDefault();
+        if(credentials.name && credentials.email && credentials.password && credentials.location){
+          e.preventDefault();
         const response= await fetch("https://go-food-20.onrender.com/api/createuser",{
             method:"POST",
             headers:{
@@ -27,6 +27,9 @@ function SignUp() {
             }, 2500);
         });
         const json = await response.json()
+        }else{
+          e.preventDefault();
+        }
     }
   return (
     <section className="vh-100" style={{backgroundColor:"#fffcf4"}}>
