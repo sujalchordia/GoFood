@@ -25,11 +25,12 @@ export default function Card({_id,name,description,img,options}) {
   function handleCart(){
     if(!localStorage.getItem("authToken")){
       navigate("/login")
-    }
+    }else{
     setShowSuccessMessage(true);
     setTimeout(() => {
-      setShowSuccessMessage(false);
+    setShowSuccessMessage(false);
     }, 2500);
+    }
   adding({_id:_id,name:name,img:img,size:size,number:number,price:price});
   }
     return (
