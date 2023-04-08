@@ -19,13 +19,14 @@ function SignUp() {
                 email:credentials.email,
                 password:credentials.password
             })
+        }).then((res)=>{
+          navigate("/login")
+            setShowSuccessMessage(true);
+            setTimeout(() => {
+             setShowSuccessMessage(false);
+            }, 2500);
         });
         const json = await response.json()
-        navigate("/login")
-        setShowSuccessMessage(true);
-        setTimeout(() => {
-         setShowSuccessMessage(false);
-        }, 2500);
     }
   return (
     <section className="vh-100" style={{backgroundColor:"#fffcf4"}}>
